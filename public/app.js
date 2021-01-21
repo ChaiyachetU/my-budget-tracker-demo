@@ -262,7 +262,7 @@ class Store {
     // Get expend items from local storage
     const expendItems = Store.getExpendItems();
 
-    // Filter expend items in month selected
+    // Filter expend items in month selected with present year
     let expendItemsMonth = Store.filterMonth(expendItems);
 
     // Ascending sort expend items by date
@@ -282,7 +282,7 @@ class Store {
     // Get income items from local storage
     const incomeItems = Store.getIncomeItems();
 
-    // Filter income items in month selected
+    // Filter expend items in month selected with present year
     let incomeItemsMonth = Store.filterMonth(incomeItems);
 
     // Ascending sort income items by date
@@ -368,11 +368,36 @@ class Store {
     localStorage.setItem("incomeItems", JSON.stringify(incomeItems));
   }
 
-  // Filter items with month select value
+  // Filter items with present year
+  static filterYear(items) {
+    const year = new Date().getFullYear();
+
+    let yearItems = items.filter((item) => item.date.split("-")[0] == year);
+
+    return yearItems;
+  }
+
+  // Filter items with month select value and present year
   static filterMonth(items) {
     const month = document.getElementById("month-select").value;
 
-    return items.filter((item) => item.date.split("-")[1] == month);
+    let yearItems = Store.filterYear(items);
+
+    let monthItems = yearItems.filter((item) => item.date.split("-")[1] == month);
+
+    return monthItems;
+  }
+
+  // Filter items with present day with month select value and present year
+  static filterToDay(items) {
+    const today = new Date().toISOString().split("T")[0];
+
+    // Filter expend items in month selected with present year
+    let monthItems = Store.filterMonth(items);
+
+    let dayItems = monthItems.filter((item) => item.date == today);
+
+    return dayItems;
   }
 
   // Write JSON data to sheet (xlsx)
@@ -405,7 +430,7 @@ class Store {
     // Get expend items from local storage
     const expendItems = Store.getExpendItems();
 
-    // Filter expend items in month selected
+    // Filter expend items in month selected with present year
     let expendItemsMonth = Store.filterMonth(expendItems);
 
     expendItemsMonth.sort(function (a, b) {
@@ -415,7 +440,7 @@ class Store {
     // Get income items from local storage
     const incomeItems = Store.getIncomeItems();
 
-    // Filter income items in month selected
+    // Filter income items in month selected with present year
     let incomeItemsMonth = Store.filterMonth(incomeItems);
 
     incomeItemsMonth.sort(function (a, b) {
@@ -436,51 +461,47 @@ class DrawCard {
     // Get expend items from local storage
     const expendItems = Store.getExpendItems();
 
+    // Filter expend items in present year
+    const expendItemsYear = Store.filterYear(expendItems);
+
+    // Filter expend items in month selected with present year
+    const expendItemsMonth = Store.filterMonth(expendItems);
+
+    // Filter expend items in today with month selected and present year
+    const expendItemsDay = Store.filterToDay(expendItems);
+
     // Sum expend cost in a days
     cardDatas.push(
-      expendItems
-        .filter((item) => {
-          return item.date.split("-")[2] == new Date().getDate();
-        })
-        .reduce((sum, item) => {
-          return sum + parseInt(item.cost);
-        }, 0)
+      expendItemsDay.reduce((sum, item) => {
+        return sum + parseInt(item.cost);
+      }, 0)
     );
 
     // Sum expend cost in month
     cardDatas.push(
-      expendItems
-        .filter((item) => {
-          return item.date.split("-")[1] == new Date().getMonth() + 1;
-        })
-        .reduce((sum, item) => {
-          return sum + parseInt(item.cost);
-        }, 0)
+      expendItemsMonth.reduce((sum, item) => {
+        return sum + parseInt(item.cost);
+      }, 0)
     );
 
     // Sum expend cost in year
     cardDatas.push(
-      expendItems
-        .filter((item) => {
-          return item.date.split("-")[0] == new Date().getFullYear();
-        })
-        .reduce((sum, item) => {
-          return sum + parseInt(item.cost);
-        }, 0)
+      expendItemsYear.reduce((sum, item) => {
+        return sum + parseInt(item.cost);
+      }, 0)
     );
 
     // Get income items from local storage
     const incomeItems = Store.getIncomeItems();
 
+    // Filter expend items in month selected with present year
+    const incomeItemsMonth = Store.filterMonth(incomeItems);
+
     // Sum income cost in year
     cardDatas.push(
-      incomeItems
-        .filter((item) => {
-          return item.date.split("-")[0] == new Date().getFullYear();
-        })
-        .reduce((sum, item) => {
-          return sum + parseInt(item.cost);
-        }, 0)
+      incomeItemsMonth.reduce((sum, item) => {
+        return sum + parseInt(item.cost);
+      }, 0)
     );
 
     const counterTexts = document.querySelectorAll(".counter");
@@ -526,7 +547,7 @@ class DrawChart {
     // Get expend items from local storage
     const expendItems = Store.getExpendItems();
 
-    // Filter expend items in month selected
+    // Filter expend items in month selected with present year
     const expendItemsMonth = Store.filterMonth(expendItems);
 
     // Set expend items to data for bar chart
@@ -611,7 +632,7 @@ class DrawChart {
     // Get expend items from local storage
     const expendItems = Store.getExpendItems();
 
-    // Filter expend items in month selected
+    // Filter expend items in month selected with present year
     const expendItemsMonth = Store.filterMonth(expendItems);
 
     // Set expend items to data for doughnut chart
