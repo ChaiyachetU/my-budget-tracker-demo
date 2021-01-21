@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;700&display=swap");
+
+* {
+  font-family: "Mitr", sans-serif;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.img-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.edit {
+  color: #007965;
+}
+.edit:hover {
+  color: #00af91;
+}
+
+.delete {
+  color: #c70039;
+}
+.delete:hover {
+  color: #ff577f;
+}
+
+.bx {
+  pointer-events: none;
+}
+
+table tbody {
+  display: block;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+table thead,
+table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table > thead {
+  width: 98%;
+}
+
+@media only screen and (max-width: 992px) {
+  .img-profile {
+    display: none;
+  }
+  .modal-footer .btn {
+    width: 100%;
+  }
+}
