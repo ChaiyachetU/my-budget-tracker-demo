@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fa90334e-0226-4756-a509-8fb98c0833cd/deploy-status)](https://app.netlify.com/sites/demo-my-budget-tracker/deploys)
+
 # About The Project
 
 My Budget Tracker Project.
@@ -17,6 +19,10 @@ Features
 - Export Expend items and Income items to xlsx file by select month.
 
 - Using Local Storage for Record Expend Items and Income Items.
+
+## Demo
+
+[Demo](https://demo-my-budget-tracker.netlify.app/)
 
 ## Screenshot
 
