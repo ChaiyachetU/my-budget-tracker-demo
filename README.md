@@ -18,6 +18,10 @@ Features
 
 - Using Local Storage for Record Expend Items and Income Items.
 
+## Screenshot
+
+![screenshot](https://i.ibb.co/KXRTykQ/my-budget-tracker-app-cover.png)
+
 ## Installation
 
 ## Usage
