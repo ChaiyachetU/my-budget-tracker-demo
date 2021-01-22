@@ -3,12 +3,536 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <!-- Box Icons -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Chart JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Chart JS Plugin -->
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
+    <!-- CountUp JS -->
+    <script src="https://cdn.jsdelivr.net/npm/countup@1.8.2/dist/countUp.min.js"></script>
+
+    <!-- Sweet Aleart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <!-- Sheet JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.mini.min.js"
+      integrity="sha512-edsVBJ+Mhf6lc2Sm3k87X8q794hL9g++dgr4yetkaHJfLJfz6e6SG5wq921i2YHjQCAtJ+91ZzbhxP+L9WVwOA=="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- File Save JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+      integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css" />
+
     <title>My Budget Tracker</title>
-    <script>
-      window.location.href = "./dashboard.html";
-    </script>
   </head>
   <body>
-    Go to <a href="./dashboard.html">Dashboard</a>
+    <!-- Navbar -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">My Budget Tracker 💰💸</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar"
+          aria-controls="navbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Expend
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add-expend-item-modal"
+                    ><i class="bx bx-plus-circle"></i> Add Expend</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Income
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add-income-item-modal"
+                    ><i class="bx bx-plus-circle"></i> Add Income</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle active"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Hi👋, Adam
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bx bx-log-out"></i> Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <img class="img-profile" src="./images/profile-pic.png" />
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Container -->
+    <div class="container-fluid">
+      <!-- Cards Content Row -->
+      <div class="row mt-3">
+        <!-- Card-1 -->
+        <div class="col-lg-3 col-sm-6 col-12 mt-2">
+          <div class="card">
+            <div class="card-body text-danger">
+              <h5 class="card-title text-muted">💸Today Expend</h5>
+              <h3 class="card-text counter">0</h3>
+            </div>
+          </div>
+        </div>
+        <!-- Card-1 -->
+
+        <!-- Card-2 -->
+        <div class="col-lg-3 col-sm-6 col-12 mt-2">
+          <div class="card">
+            <div class="card-body text-danger">
+              <h5 class="card-title text-muted">💸Expend(Month)</h5>
+              <h3 class="card-text counter">0</h3>
+            </div>
+          </div>
+        </div>
+        <!-- Card-2 -->
+
+        <!-- Card-3 -->
+        <div class="col-lg-3 col-sm-6 col-12 mt-2">
+          <div class="card">
+            <div class="card-body text-danger">
+              <h5 class="card-title text-muted">💸Expend(Year)</h5>
+              <h3 class="card-text counter">0</h3>
+            </div>
+          </div>
+        </div>
+        <!-- Card-3 -->
+
+        <!-- Card-4 -->
+        <div class="col-lg-3 col-sm-6 col-12 mt-2">
+          <div class="card">
+            <div class="card-body text-success">
+              <h5 class="card-title text-muted">💰Income(Year)</h5>
+              <h3 class="card-text counter">0</h3>
+            </div>
+          </div>
+        </div>
+        <!-- Card-4 -->
+      </div>
+      <!-- Cards Content Row -->
+
+      <!-- Charts Content Row -->
+      <div class="row mt-3">
+        <!-- Charts Header -->
+        <h3>Expend 💸</h3>
+        <!-- Charts Header -->
+
+        <!-- Line Chart -->
+        <div class="col-lg-9 col-sm-12 col-12">
+          <h4 class="text-muted">Daily</h4>
+          <div class="card" style="border: 0px">
+            <div
+              id="chart-days-body"
+              class="card-body"
+              style="width: 100%; height: 100%"
+            >
+              <canvas id="chart-days" height="350"></canvas>
+            </div>
+          </div>
+        </div>
+        <!-- Line Chart -->
+
+        <!-- Pie Chart -->
+        <div class="col-lg-3 col-sm-12 col-12">
+          <h4 class="text-muted">Category</h4>
+          <div class="card" style="border: 0px">
+            <div
+              id="chart-categories-body"
+              class="card-body"
+              style="width: 100%; height: 100%"
+            >
+              <canvas id="chart-categories" width="100" height="350"></canvas>
+            </div>
+          </div>
+        </div>
+        <!-- Pie Chart -->
+      </div>
+      <!-- Charts Content Row -->
+
+      <!-- List Contents Row -->
+      <div class="row mt-3">
+        <!-- Header List -->
+        <h3>Expend💸 & Income💰</h3>
+        <!-- Header List -->
+
+        <!-- Month Select -->
+        <div class="row mt-2 col-lg-6">
+          <div class="input-group">
+            <select id="month-select" class="form-select">
+              <option selected disabled>Select Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <button
+              id="export"
+              type="button"
+              class="btn btn-outline-primary btn-export"
+            >
+              Export <i class="bx bxs-save"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Month Select -->
+
+        <!-- List Table -->
+        <div class="row mt-2">
+          <!-- Expend List -->
+          <div class="col-lg-6 col-sm-12 col-12 mt-2">
+            <h4 class="text-muted">Expend Items 🧾</h4>
+            <table id="expend-table" class="table table-striped table-fixed">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th class="text-end">Cost</th>
+                  <th class="text-center">Category</th>
+                  <th class="text-center">Edit</th>
+                </tr>
+              </thead>
+              <tbody id="expend-items">
+                <!-- Dynamic Data wiht JS -->
+              </tbody>
+            </table>
+          </div>
+          <!-- Expend List -->
+
+          <!-- Income List -->
+          <div class="col-lg-6 col-sm-12 col-12 mt-2">
+            <h4 class="text-muted">Income Items 🧾</h4>
+            <table id="income-table" class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th class="text-end">Cost</th>
+                  <th class="text-center">Edit</th>
+                </tr>
+              </thead>
+              <tbody id="income-items">
+                <!-- Dynamic Data wiht JS -->
+              </tbody>
+            </table>
+          </div>
+          <!-- Income List -->
+        </div>
+        <!-- List Table -->
+      </div>
+      <!-- List Contents Row -->
+    </div>
+    <!-- Container -->
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container-fluid text-center">
+        <span class="text-muted"
+          >Copyright &copy;
+          <a class="link" href="https://adamblog.co" target="_blank">adamblog.co</a>
+          All Rights Reserved 🚀</span
+        >
+      </div>
+    </footer>
+    <!-- Footer -->
+
+    <!-- Add Expend Item Modal -->
+    <div
+      class="modal fade"
+      id="add-expend-item-modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Expend Item</h5>
+          </div>
+          <div class="modal-body">
+            <form id="expend-item-form">
+              <div class="mb-3">
+                <label for="expend-date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="expend-date" />
+              </div>
+              <div class="mb-3">
+                <label for="expend-title" class="form-label">Description</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="expend-title"
+                  placeholder="Expend Item"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="expend-cost" class="form-label">Cost</label>
+                <input
+                  type="number"
+                  min="0"
+                  class="form-control"
+                  id="expend-cost"
+                  placeholder="Cost"
+                />
+              </div>
+              <div class="mb-3">
+                <label>Category</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="category"
+                  id="food-category"
+                  value="🍔"
+                  checked="checked"
+                />
+                <label class="form-check-label" for="food-category">🍔</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="category"
+                  id="party-category"
+                  value="🍻"
+                />
+                <label class="form-check-label" for="party-category">🍻</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="category"
+                  id="house-category"
+                  value="🏠"
+                />
+                <label class="form-check-label" for="house-category">🏠</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="category"
+                  id="shopping-category"
+                  value="🛒"
+                />
+                <label class="form-check-label" for="shopping-category">🛒</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="category"
+                  id="car-category"
+                  value="🚗"
+                />
+                <label class="form-check-label" for="car-category">🚗</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="category"
+                  id="other-category"
+                  value="❓"
+                />
+                <label class="form-check-label" for="other-category">❓</label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-start">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="expend-item-submit"
+              data-id=""
+            >
+              Add Expend 💸
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="expend-item-cancel"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add Expend Item Modal -->
+
+    <!-- Add Income Item Modal -->
+    <div
+      class="modal fade"
+      id="add-income-item-modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Add Income Item</h5>
+          </div>
+          <div class="modal-body">
+            <form id="income-item-form">
+              <div class="mb-3">
+                <label for="income-date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="income-date" />
+              </div>
+              <div class="mb-3">
+                <label for="income-title" class="form-label">Description</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="income-title"
+                  placeholder="Income Item"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="income-cost" class="form-label">Cost</label>
+                <input
+                  type="number"
+                  min="0"
+                  class="form-control"
+                  id="income-cost"
+                  placeholder="Cost"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-start">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="income-item-submit"
+              data-id=""
+            >
+              Add Income 💰
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="income-item-cancel"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add Income Modal -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- App JS -->
+    <script src="app.js"></script>
   </body>
 </html>
